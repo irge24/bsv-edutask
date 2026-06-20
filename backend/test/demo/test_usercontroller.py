@@ -43,4 +43,9 @@ def test_no_user_found(controller):
     assert result is None
 
 def test_dao_exception(controller):
-    pass
+    email = "hej@gmail.com"
+
+    controller.dao.find.side_effect = Exception("DB error")
+
+    with pytest.raises(Exception):
+        controller.get_user_by_email(email)
