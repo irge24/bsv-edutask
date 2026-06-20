@@ -15,7 +15,13 @@ def test_invalid_email(controller):
         controller.get_user_by_email(incorrect_email)
 
 def test_one_user_found(controller):
-    pass
+    email = "hej@gmail.com"
+    expected_user = {"email": email}
+
+    controller.dao.find.return_value = [expected_user]
+    result = controller.get_user_by_email(email)
+
+    assert result == expected_user
 
 def test_multiple_users_found(controller):
     pass
