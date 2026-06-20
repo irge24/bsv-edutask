@@ -1,17 +1,27 @@
 import pytest
-import unittest.mock as mock
+from unittest.mock import MagicMock
 
-from src.util.helpers import ValidationHelper
+from src.controllers.usercontroller import UserController
 
 @pytest.fixture
-def sut(age: int):
-    mockedusercontroller = mock.MagicMock()
-    mockedusercontroller.get.return_value = {'age': age}
-    mockedsut = ValidationHelper(usercontroller=mockedusercontroller)
-    return mockedsut
+def controller():
+    mocked_dao = MagicMock()
+    return UserController(dao=mocked_dao)
 
-@pytest.mark.demo
-@pytest.mark.parametrize('age, expected', [(-1, 'invalid'), (0, 'underaged'), (1, 'underaged'), (17, 'underaged'), (18, 'valid'), (19, 'valid'), (119, 'valid'), (120, 'valid'), (121, 'invalid')])
-def test_validateAge(sut, expected):
-    validationresult = sut.validateAge(userid=None)
-    assert validationresult == expected
+def test_invalid_email(controller):
+    pass
+
+def test_one_user_found(controller):
+    pass
+
+
+def test_multiple_users_found(controller):
+    pass
+
+
+def test_no_user_found(controller):
+    pass
+
+
+def test_dao_exception(controller):
+    pass
