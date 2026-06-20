@@ -24,7 +24,15 @@ def test_one_user_found(controller):
     assert result == expected_user
 
 def test_multiple_users_found(controller):
-    pass
+    email = "hej@gmail.com"
+
+    user1 = {"email": email}
+    user2 = {"email": email}
+
+    controller.dao.find.return_value = [user1, user2]
+    result = controller.get_user_by_email(email)
+
+    assert result == user1
 
 def test_no_user_found(controller):
     pass
