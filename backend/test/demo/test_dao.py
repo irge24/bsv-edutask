@@ -14,26 +14,44 @@ def test_valid_user_without_tasks(dao):
     user = {
         "firstName": "Anna",
         "lastName": "Andersson",
-        "email": "unique1@gmail.com", 
+        "email": "unique1@gmail.com",
         "tasks": []
     }
 
     result = dao.create(user)
 
-    assert "firstName" in result
+    assert result["firstName"] == "Anna"
+    assert result["lastName"] == "Andersson"
+    assert result["email"] == "unique1@gmail.com"
     assert result["tasks"] == []
 
 def test_missing_firstName(dao):
-    pass
+    user = {
+        "lastName": "Andersson",
+        "email": "unique2@gmail.com"
+    }
 
+    with pytest.raises(Exception):
+        dao.create(user)
 
 def test_missing_lastName(dao):
-    pass
+    user = {
+        "firstName": "Anna",
+        "email": "unique3@gmail.com", 
+    }
+
+    with pytest.raises(Exception):
+        dao.create(user)
 
 
 def test_missing_email(dao):
-    pass
+    user = {
+        "firstName": "Anna",
+        "lastName": "Andersson"
+    }
 
+    with pytest.raises(Exception):
+        dao.create(user)
 
 def test_firstName_wrong_type(dao):
     pass
